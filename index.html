@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="description" content="Universe of Pets — застосунок, у центрі якого ваш пес чи кіт: історія, здоров'я, справи, послуги й спільнота.">
+<meta property="og:title" content="Universe of Pets">
+<meta property="og:description" content="Усе про вашого пса чи кота — в одному місці.">
+<meta property="og:image" content="https://koto-kot.github.io/universe-of-pets-site/a/ch1_sq.jpg">
+<link rel="icon" href="a/ch1_sq.jpg">
+<title>Universe of Pets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Onest:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a night-sky hero with the planet emblem, then a calm reading column; screens sit beside their story, alternating sides. */
+:root {
+  --bg: #F6F7FB;
+  --surface: #FFFFFF;
+  --ink: #1C2030;
+  --muted: #5B6178;
+  --line: #E0E3EE;
+  --navy: #1E2A55;
+  --navy-ink: #E6EAF7;
+  --gold: #E3B341;
+  --accent: #3E6E86;
+  --soft: #E6EEF2;
+  --tg: #229ED9;
+  --tg-soft: #E3F2FB;
+  --sand: #FFF3DC;
+  --green: #E0F0E7;
+  --rose: #F7E6E9;
+  --violet: #5B4FB0;
+  --violet-soft: #EEECFB;
+  --shadow: 0 10px 28px rgba(28, 32, 48, .10);
+  --display: "Unbounded", "Segoe UI", system-ui, sans-serif;
+  --body: "Onest", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12172B; --surface: #1A2140; --ink: #E8EBF6; --muted: #A3ABC8; --line: #2C3560;
+    --navy: #0E1430; --navy-ink: #E6EAF7; --accent: #8FC0D6; --soft: #22305A; --tg-soft: #173450;
+    --sand: #3A3122; --green: #1C3A2C; --rose: #3E2430; --violet: #B9B0F5; --violet-soft: #2A2752;
+    --shadow: 0 10px 28px rgba(0, 0, 0, .35); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12172B; --surface: #1A2140; --ink: #E8EBF6; --muted: #A3ABC8; --line: #2C3560;
+  --navy: #0E1430; --navy-ink: #E6EAF7; --accent: #8FC0D6; --soft: #22305A; --tg-soft: #173450;
+  --sand: #3A3122; --green: #1C3A2C; --rose: #3E2430; --violet: #B9B0F5; --violet-soft: #2A2752;
+  --shadow: 0 10px 28px rgba(0, 0, 0, .35); color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 16px/1.6 var(--body); margin: 0; }
+img { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; letter-spacing: -.01em; }
+p { margin: 0; }
+a { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 20px; }
+
+/* nav */
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--navy); border-bottom: 1px solid #2E3A6B; }
+.nav .wrap { display: flex; align-items: center; gap: 18px; height: 54px; }
+.brand { display: flex; align-items: center; gap: 10px; color: #fff; font: 700 15px/1 var(--display); text-decoration: none; margin-right: auto; white-space: nowrap; }
+.brand img { width: 28px; height: 28px; border-radius: 50%; }
+.nav a.l { color: #C9D2F0; text-decoration: none; font-size: 14px; font-weight: 500; }
+.nav a.l:hover { color: #fff; }
+@media (max-width: 560px) { .nav a.l.opt { display: none; } }
+
+/* hero */
+.hero { background: var(--navy); color: var(--navy-ink); position: relative; overflow: hidden; }
+.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hero .wrap { position: relative; padding-block: 64px 0; text-align: center; }
+.emblem { width: 132px; height: 132px; border-radius: 50%; margin: 0 auto; box-shadow: 0 0 0 8px rgba(255,255,255,.06), 0 18px 50px rgba(0,0,0,.45); }
+.word { font: 800 clamp(38px, 7vw, 68px)/1 var(--display); color: #fff; margin-top: 28px; letter-spacing: -.02em; }
+.word span { color: var(--gold); }
+.kicker { font-size: 13px; letter-spacing: .3em; text-transform: uppercase; color: #AEB8DD; margin-top: 14px; }
+.hero .tag { font-size: clamp(17px, 2.2vw, 21px); line-height: 1.45; max-width: 34ch; margin: 22px auto 0; color: #E6EAF7; }
+.pills { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 26px; }
+.pill { border: 1px solid #4A5788; border-radius: 999px; padding: 6px 14px; font-size: 13.5px; color: #DDE3F6; }
+.pill b { color: #fff; font-weight: 600; }
+.phones { display: flex; gap: 22px; justify-content: center; align-items: flex-end; margin-top: 44px; }
+.phones img { width: 210px; aspect-ratio: 720 / 1300; object-fit: cover; object-position: top; border-radius: 26px 26px 0 0; border: 4px solid #fff; border-bottom: 0; box-shadow: 0 -10px 40px rgba(0,0,0,.35); }
+.phones img:nth-child(2) { width: 236px; }
+@media (max-width: 640px) { .phones img:nth-child(1), .phones img:nth-child(3) { display: none; } .phones img:nth-child(2) { width: 240px; } }
+
+/* sections */
+section.part { padding-block: 72px; }
+.eyebrow { font: 600 12.5px/1 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.h-big { font: 700 clamp(28px, 4vw, 40px)/1.15 var(--display); margin-top: 12px; }
+.lead { font-size: 18px; color: var(--muted); max-width: 66ch; margin-top: 14px; }
+.lead b { color: var(--ink); }
+
+/* orbit */
+.orbit { position: relative; max-width: 860px; aspect-ratio: 16 / 11; margin: 40px auto 0; }
+.orbit .ring { position: absolute; left: 50%; top: 50%; width: 62%; aspect-ratio: 1; transform: translate(-50%, -50%); border: 2px dashed var(--line); border-radius: 50%; }
+.orbit .core { position: absolute; left: 50%; top: 50%; width: 27%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; box-shadow: var(--shadow); }
+.sat { position: absolute; transform: translate(-50%, -50%); width: 25%; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 12px 14px; font-size: 13.5px; line-height: 1.4; color: var(--muted); box-shadow: var(--shadow); }
+.sat b { display: block; font: 600 14.5px/1.25 var(--display); color: var(--ink); margin-bottom: 4px; }
+@media (max-width: 760px) {
+  .orbit { aspect-ratio: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .orbit .ring { display: none; }
+  .orbit .core { position: static; transform: none; width: 140px; grid-column: 1 / -1; justify-self: center; margin-bottom: 8px; }
+  .sat { position: static; transform: none; width: auto; }
+}
+.trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 44px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px 22px; min-width: 0; }
+.card h3 { font-size: 16.5px; margin-bottom: 8px; }
+.card p, .card li { color: var(--muted); font-size: 15px; }
+@media (max-width: 760px) { .trio { grid-template-columns: 1fr; } }
+
+/* features */
+.feats { display: grid; gap: 28px; margin-top: 40px; }
+.feat { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 40px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 32px; }
+.feat.flip { grid-template-columns: minmax(0, 1fr) auto; }
+.feat.flip .shots { order: 2; }
+.shots { display: flex; gap: 14px; }
+.shots img { width: 200px; aspect-ratio: 720 / 1471; object-fit: cover; object-position: top; border-radius: 18px; border: 1px solid var(--line); box-shadow: var(--shadow); background: var(--bg); }
+.feat h3 { font-size: 22px; line-height: 1.25; display: flex; gap: 12px; align-items: baseline; }
+.feat h3 .n { flex: none; font: 700 13px/1 var(--body); color: #fff; background: var(--navy); border-radius: 999px; padding: 6px 10px; transform: translateY(-3px); }
+:root[data-theme="dark"] .feat h3 .n { background: var(--accent); color: #12172B; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .feat h3 .n { background: var(--accent); color: #12172B; } }
+.feat ul { margin: 16px 0 0; padding-left: 20px; display: grid; gap: 8px; }
+.feat li { font-size: 15.5px; }
+.hint { border-radius: 14px; padding: 12px 16px; margin-top: 16px; font-size: 15px; background: var(--soft); }
+.hint.tg { background: var(--tg-soft); } .hint.sand { background: var(--sand); }
+.note { color: var(--muted); font-size: 13.5px; margin-top: 10px; }
+.soon { display: inline-block; background: var(--violet-soft); color: var(--violet); border-radius: 6px; padding: 1px 7px; font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+@media (max-width: 860px) {
+  .feat, .feat.flip { grid-template-columns: 1fr; gap: 24px; padding: 22px; }
+  .feat.flip .shots { order: 0; }
+  .shots { justify-content: center; }
+  .shots img { width: calc(50% - 7px); max-width: 220px; }
+}
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.chip { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; font-size: 14px; }
+
+/* flows */
+.flows { display: grid; gap: 12px; margin-top: 32px; }
+.flow { display: flex; align-items: stretch; gap: 0; }
+.flow .st { flex: 1; min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; font-size: 14px; line-height: 1.4; color: var(--muted); }
+.flow .st b { display: block; color: var(--ink); font: 600 14.5px/1.25 var(--display); margin-bottom: 4px; }
+.flow .st.hl { background: var(--soft); border-color: transparent; }
+.flow .st.tg { background: var(--tg-soft); border-color: transparent; }
+.flow .ar { flex: none; width: 26px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 18px; }
+@media (max-width: 760px) {
+  .flow { flex-direction: column; }
+  .flow .ar { width: auto; height: 22px; transform: rotate(90deg); }
+}
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 28px; }
+.stat { background: var(--soft); border-radius: 18px; padding: 18px 20px; }
+.stat b { display: block; font: 700 32px/1.1 var(--display); color: var(--ink); font-variant-numeric: tabular-nums; }
+.stat span { font-size: 14px; color: var(--muted); }
+@media (max-width: 760px) { .stats { grid-template-columns: 1fr 1fr; } }
+
+/* tech */
+.tech { background: var(--surface); border-block: 1px solid var(--line); }
+.arch { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 18px; align-items: center; margin-top: 36px; }
+.arch .col { display: grid; gap: 18px; }
+.node { border-radius: 18px; padding: 18px 20px; font-size: 14.5px; line-height: 1.5; color: var(--ink); }
+.node b { display: flex; align-items: center; gap: 10px; font: 600 16px/1.25 var(--display); margin-bottom: 6px; }
+.node img { width: 32px; height: 32px; border-radius: 50%; }
+.node.phone { background: var(--soft); } .node.gd { background: var(--green); } .node.tgn { background: var(--tg-soft); } .node.ext { background: var(--sand); }
+.node.server { background: var(--navy); color: #DCE2F5; padding: 28px 24px; box-shadow: var(--shadow); }
+.node.server b { color: #fff; font-size: 18px; }
+.links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 14px; font-size: 13.5px; color: var(--muted); text-align: center; }
+.links div { border-top: 2px dotted var(--line); padding-top: 8px; }
+@media (max-width: 860px) { .arch, .links { grid-template-columns: 1fr; } }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
+.grid2 ul { margin: 10px 0 0; padding-left: 20px; display: grid; gap: 6px; }
+@media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+.sub { display: flex; align-items: center; gap: 12px; margin-top: 56px; }
+.sub img { width: 40px; height: 40px; border-radius: 50%; }
+.sub h3 { font-size: 22px; }
+.sub + .flow, .sub + .steps { margin-top: 18px; }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.step { border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; font-size: 14px; line-height: 1.45; color: var(--muted); background: var(--bg); }
+.step.app { background: var(--soft); border-color: transparent; }
+.step b { display: flex; align-items: center; gap: 8px; color: var(--ink); font: 600 14.5px/1.25 var(--display); margin-bottom: 6px; }
+.step .k { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--navy); color: #fff; font: 700 12px/24px var(--body); text-align: center; }
+@media (max-width: 860px) { .steps { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .steps { grid-template-columns: 1fr; } }
+.box { border-radius: 18px; padding: 20px 22px; font-size: 15px; min-width: 0; }
+.box h3 { font-size: 17px; margin-bottom: 8px; }
+.box.violet { background: var(--violet-soft); } .box.rose { background: var(--rose); } .box.soft { background: var(--soft); }
+.box.green { background: var(--green); } .box.sand { background: var(--sand); } .box.tg { background: var(--tg-soft); }
+
+/* plans */
+.plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 36px; }
+@media (max-width: 860px) { .plans { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .plans { grid-template-columns: 1fr; } }
+.road { margin-top: 44px; overflow-x: auto; }
+.road table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 520px; }
+.road th { text-align: left; font: 600 12.5px/1.2 var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); border-bottom: 2px solid var(--ink); padding: 8px; }
+.road td { border-bottom: 1px solid var(--line); padding: 12px 8px; vertical-align: top; }
+.road td:first-child { font-weight: 600; width: 26%; }
+.closing { background: var(--navy); color: #E3E8F7; }
+.closing .wrap { display: flex; gap: 28px; align-items: center; padding-block: 56px; }
+.closing img { width: 96px; height: 96px; border-radius: 50%; flex: none; }
+.closing p { font-size: 19px; line-height: 1.55; max-width: 62ch; }
+.closing b { color: #fff; }
+.closing small { display: block; color: #AEB8DD; font-size: 13.5px; margin-top: 14px; }
+@media (max-width: 560px) { .closing .wrap { flex-direction: column; text-align: center; } }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+</head>
+<body>
+<nav class="nav" aria-label="Розділи">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="a/ch1_sq.jpg" alt="">Universe of Pets</a>
+    <a class="l" href="#product">Продукт</a>
+    <a class="l" href="#tech">Технологія</a>
+    <a class="l opt" href="#plans">Плани</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <img class="emblem" src="a/ch1_sq.jpg" alt="Емблема Universe of Pets: собака й кіт на планеті з кільцем">
+    <h1 class="word">Universe <span>of</span> Pets</h1>
+    <div class="kicker">Всесвіт домашніх улюбленців</div>
+    <p class="tag">Усе про вашого пса чи кота — в одному місці: історія, здоров'я, справи, послуги й спільнота.</p>
+    <div class="pills">
+      <span class="pill"><b>Android</b> · робочий застосунок</span>
+      <span class="pill">версія <b>0.3</b> у тестувальників</span>
+      <span class="pill"><b>324</b> ветклініки й грумери Києва</span>
+      <span class="pill">українська · English</span>
+    </div>
+    <div class="phones">
+      <img src="c/02_home_cat.jpg" alt="Головний екран кішки Мурки">
+      <img src="c/01_home.jpg" alt="Головний екран собаки Бублика">
+      <img src="c/x_feed_dog.jpg" alt="Стрічка історії Бублика">
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="part" id="product">
+  <div class="wrap">
+    <div class="eyebrow">Частина I · Продукт</div>
+    <h2 class="h-big">Улюбленець у центрі</h2>
+    <p class="lead">Сьогодні життя тварини розкидане по телефону: фото й відео — серед тисяч інших у галереї, довідки й аналізи — у паперах і месенджерах, щеплення — у пам'яті власника, ветклініку шукають у Google, поради — у випадкових чатах. Universe of Pets збирає все це навколо самого улюбленця. <b>Нічого не губиться, усе під рукою, а з роками складається справжня історія життя.</b></p>
+
+    <div class="orbit">
+      <div class="ring"></div>
+      <img class="core" src="a/group_sq.jpg" alt="Собака й кіт — емблема спільноти">
+      <div class="sat" style="left:50%;top:7%"><b>Історія</b>Фото, відео, голосові розповіді — стрічкою, галереєю й календарем</div>
+      <div class="sat" style="left:84%;top:20%"><b>Здоров'я</b>Щеплення, аналізи, PDF від клініки, вага</div>
+      <div class="sat" style="left:87%;top:52%"><b>Нагадування</b>Як будильник: обробки, грумінг, візити</div>
+      <div class="sat" style="left:78%;top:84%"><b>Послуги</b>Ветклініки й грумери поруч, онлайн-запис</div>
+      <div class="sat" style="left:50%;top:94%"><b>Спільнота</b>Група власників, сусіди, прогулянки</div>
+      <div class="sat" style="left:22%;top:84%"><b>Поділитися</b>У нашу групу й будь-яку соцмережу</div>
+      <div class="sat" style="left:13%;top:52%"><b>Новини й поради</b>Наш канал і порада дня для собак і котів</div>
+      <div class="sat" style="left:16%;top:20%"><b>Паспорт і пам'ять</b>Картка, хазяїн, копія, «Книга життя»</div>
+    </div>
+
+    <div class="trio">
+      <div class="card"><h3>Для кого</h3><p>Власники собак і котів в Україні. Кілька улюбленців — кожен зі своїм кольором застосунку, тож завжди видно, з ким ви зараз.</p></div>
+      <div class="card"><h3>Головна думка</h3><p>Не «ще одна соцмережа», а особистий простір тварини. Спілкування — там, де люди вже є: у Telegram.</p></div>
+      <div class="card"><h3>Без реєстрації</h3><p>Жодних акаунтів і паролів. Усе зберігається на телефоні власника, копія — у його власному Google Drive.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="part" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow">Частина I · Як це виглядає</div>
+    <h2 class="h-big">Справжні екрани</h2>
+    <p class="lead">Знімки з тестової версії 0.3. У ній уже «живуть» собака Бублик і кішка Мурка, щоб тестувальники одразу бачили наповнений застосунок.</p>
+
+    <div class="feats">
+      <article class="feat">
+        <div class="shots"><img src="c/01_home.jpg" alt="Головна Бублика" loading="lazy"><img src="c/02_home_cat.jpg" alt="Головна Мурки" loading="lazy"></div>
+        <div>
+          <h3><span class="n">1</span>Головна — день улюбленця</h3>
+          <ul>
+            <li><b>Фото й ім'я</b>, кнопка <b>Паспорт</b>. Свайп убік — наступний улюбленець, і застосунок перефарбовується в його колір.</li>
+            <li><b>Відео · Фото · Голос</b> — одним дотиком зняти момент або розповісти історію. Усе одразу в Історії.</li>
+            <li><b>Інфозона</b> — свіжі новини нашого каналу (заголовок і «Читати ›») та <b>порада дня</b> окремо для собак і котів.</li>
+            <li><b>Найближчі нагадування</b> гортаються вгору-вниз; «+» — нове.</li>
+          </ul>
+          <div class="hint">Унизу — чотири розділи: <b>Мій пес · Нагадування · Спільнота · Сервіси</b>.</div>
+        </div>
+      </article>
+
+      <article class="feat flip">
+        <div class="shots"><img src="c/03_passport.jpg" alt="Паспорт Мурки" loading="lazy"><img src="c/x_pass2.jpg" alt="Здоров'я і документи в паспорті" loading="lazy"></div>
+        <div>
+          <h3><span class="n">2</span>Паспорт, здоров'я і документи</h3>
+          <ul>
+            <li><b>Паспорт</b>: порода (понад 70 у довіднику), вік, стать, фото, <b>характер</b> — готові позначки й свої слова.</li>
+            <li><b>Хазяїн</b> — ім'я й телефон: видно на картці, якщо улюбленець загубиться.</li>
+            <li><b>Здоров'я і документи</b>: щеплення, огляди, аналізи, вага. Сфотографувати документ або додати <b>PDF, який надіслала клініка</b> — висновки, аналізи, рекомендації.</li>
+            <li>З медичного запису — <b>нагадування</b> про наступний огляд.</li>
+          </ul>
+          <div class="hint">З роками — <b>повна історія хвороб і лікування</b> в одному місці. Надіслати лікарю одним повідомленням <span class="soon">у планах</span></div>
+          <p class="note">Застосунок не ставить діагнозів — відомості додає власник.</p>
+        </div>
+      </article>
+
+      <article class="feat">
+        <div class="shots"><img src="c/x_feed_dog.jpg" alt="Стрічка" loading="lazy"><img src="c/x_calendar.jpg" alt="Календар" loading="lazy"></div>
+        <div>
+          <h3><span class="n">3</span>Історія життя</h3>
+          <ul>
+            <li><b>Стрічка</b> — усі моменти по днях: фото, відео, тексти, голосові розповіді.</li>
+            <li><b>Галерея</b> — лише фото й відео улюбленця, окремо від тисяч інших у телефоні.</li>
+            <li><b>Календар</b> — що було в будь-який день; звідси ж — нагадування на дату.</li>
+            <li><b>Пошук</b> і теми: Моменти, Гра, Прогулянки, Харчування, Здоров'я, Догляд, Тренування.</li>
+          </ul>
+          <div class="hint">Під кожним моментом — <b>«Поділитися»</b>.</div>
+        </div>
+      </article>
+
+      <article class="feat flip">
+        <div class="shots"><img src="c/x_voice.jpg" alt="Розповідь голосом" loading="lazy"><img src="c/x_entry_new.jpg" alt="Новий запис" loading="lazy"></div>
+        <div>
+          <h3><span class="n">4</span>Як додається момент</h3>
+          <ul>
+            <li><b>Фото чи відео</b> — камерою з головної або з галереї; фільтри для фото.</li>
+            <li><b>Голос</b> — розкажіть, і застосунок перетворить мову на текст, сам визначить тему і, якщо в словах є справа на майбутнє, запропонує <b>нагадування</b>.</li>
+            <li><b>Текстом</b> — свої слова, дата, тема, фото й відео.</li>
+            <li>Відео лишаються в галереї телефона, а застосунок пам'ятає їхній «відбиток» — на новому телефоні вони знаходяться самі.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feat">
+        <div class="shots"><img src="c/09_reminders.jpg" alt="Список нагадувань" loading="lazy"><img src="c/10_reminder_new.jpg" alt="Нове нагадування" loading="lazy"></div>
+        <div>
+          <h3><span class="n">5</span>Нагадування — як будильник</h3>
+          <ul>
+            <li>Усі справи: сьогодні, завтра, пізніше; окремо <b>щоденні</b> (вигул, годування) — з власним звуком.</li>
+            <li>Нове нагадування на одному екрані: <b>що</b>, <b>коли</b>, повтор і коли попередити.</li>
+            <li>Вчасно дзвонить і зникає само — нічого не треба відмічати.</li>
+          </ul>
+          <div class="hint sand">Нагадування <b>створюються самі</b>: після онлайн-запису в салон, після дзвінка («Домовилися телефоном?»), з голосової розповіді, з медичного запису.</div>
+        </div>
+      </article>
+
+      <article class="feat flip">
+        <div class="shots"><img src="c/08_share.jpg" alt="Екран Поділитися" loading="lazy"><img src="c/05_feed.jpg" alt="Стрічка Мурки з кнопкою Поділитися" loading="lazy"></div>
+        <div>
+          <h3><span class="n">6</span>Поділитися — у групу й будь-яку соцмережу</h3>
+          <ul>
+            <li>Фото, відео чи альбом — з готовим <b>текстом допису</b>: ім'я, вік, порода, слова із запису, хештеги.</li>
+            <li><b>«Мурка ділиться в групі»</b> — один дотик, і пост у нашій Telegram-групі. Приносить бот <b>«Лапкова пошта»</b> від імені улюбленця; ім'я власника не показується.</li>
+            <li><b>«або від себе»</b> — зі свого Telegram, щоб вам могли відповісти.</li>
+            <li><b>Друзям, Instagram, TikTok, Facebook</b> та будь-куди. Формат застосунок вибирає сам: пост 4:5, сторіз 9:16, Reels.</li>
+          </ul>
+          <div class="hint tg">Кожен пост у групі — жива реклама застосунку: картка улюбленця й підпис «принесла „Лапкова пошта“ з Universe of Pets».</div>
+        </div>
+      </article>
+
+      <article class="feat">
+        <div class="shots"><img src="c/x_comm_dog.jpg" alt="Спільнота" loading="lazy"><img src="c/x_intro.jpg" alt="Представитися в групі" loading="lazy"></div>
+        <div>
+          <h3><span class="n">7</span>Спільнота</h3>
+          <ul>
+            <li>Спілкування — у Telegram: наша група <b>«Universe of Pets · Українська спільнота»</b> і <b>канал новин</b>.</li>
+            <li><b>Представитися</b> — фото-картка з привітанням; видно, як це виглядатиме в чаті, ще до надсилання.</li>
+            <li><b>Запросити друзів</b> — картка улюбленця будь-кому.</li>
+          </ul>
+          <div class="hint tg">Свіжі статті каналу — на головній в «Інфозоні», окремо для власників собак і котів.</div>
+        </div>
+      </article>
+
+      <article class="feat flip">
+        <div class="shots"><img src="c/x_walking.jpg" alt="Прогулянка триває" loading="lazy"><img src="c/x_yard.jpg" alt="Мій двір" loading="lazy"></div>
+        <div>
+          <h3><span class="n">8</span>Прогулянки й сусіди</h3>
+          <ul>
+            <li><b>Я гуляю</b> — «Бублик вийшов на прогулянку. Хто з нами?» у групу сусідів; застосунок рахує час прогулянки.</li>
+            <li><b>Мій двір</b> — групи вашого будинку завжди під рукою, приватні теж.</li>
+            <li>Застосунок сам робить <b>QR-плакат</b> для під'їзду.</li>
+            <li>Для котів прогулянки приховані — хіба що кота вигулюють на шлейці.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feat">
+        <div class="shots"><img src="c/12_services.jpg" alt="Сервіси" loading="lazy"><img src="c/13_groomers.jpg" alt="Список грумерів" loading="lazy"></div>
+        <div>
+          <h3><span class="n">9</span>Ветклініки й грумери поруч</h3>
+          <ul>
+            <li><b>Власний каталог Києва</b> — 202 ветклініки й 122 грумери, кожне місце звірене із сайтом самого закладу.</li>
+            <li>Зверху — <b>партнери</b>, далі — найближчі. Однакові кнопки <b>дзвінок · сайт · маршрут</b>, у партнерів — <b>«Записатися»</b>.</li>
+            <li><b>Список або карта</b> — одним перемикачем.</li>
+            <li>Зоомагазини, аптеки, готелі — поки через Google Maps; каталог розширюється.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feat flip">
+        <div class="shots"><img src="c/14_testcall.jpg" alt="Тестовий режим дзвінка" loading="lazy"><img src="c/07_theme.jpg" alt="Тема оформлення" loading="lazy"></div>
+        <div>
+          <h3><span class="n">10</span>Онлайн-запис і свій колір</h3>
+          <ul>
+            <li><b>Записатися</b> — сторінка запису салону прямо в застосунку; після «Дякуємо!» нагадування заповнюється само: дата, салон, послуга.</li>
+            <li>Салон приймає лише дзвінки — після розмови застосунок питає «Домовилися телефоном?» і пропонує готове нагадування.</li>
+            <li><b>Тема оформлення</b> — кольори для кожного улюбленця окремо; живий попередній вигляд.</li>
+          </ul>
+          <p class="note">На першому знімку — тестовий режим: у тестовій версії дзвінок салону не йде.</p>
+        </div>
+      </article>
+
+      <article class="feat">
+        <div class="shots"><img src="c/x_backup.jpg" alt="Резервна копія" loading="lazy"><img src="c/x_menu.jpg" alt="Меню улюбленця" loading="lazy"></div>
+        <div>
+          <h3><span class="n">11</span>Нічого не пропадає</h3>
+          <ul>
+            <li><b>Резервна копія</b> у власному Google Drive власника — щодня, лише змінене, у фоні. Новий телефон — усе відновлюється одним натисканням.</li>
+            <li><b>Режим «Пам'ять»</b> — коли улюбленця вже немає поруч: історія й фото лишаються, а нагадування й сервіси тихо ховаються. Скасувати можна будь-коли.</li>
+            <li>З історії збирається <b>«Книга життя»</b> <span class="soon">у планах</span></li>
+          </ul>
+        </div>
+      </article>
+    </div>
+
+    <h3 style="font-size:22px;margin-top:56px">Усе, що вже є в застосунку</h3>
+    <div class="chips">
+      <span class="chip">Кілька улюбленців — свайпом</span><span class="chip">Свій колір для кожного</span><span class="chip">Паспорт і характер</span>
+      <span class="chip">Хазяїн на картці</span><span class="chip">Медичні записи</span><span class="chip">PDF і фото документів</span><span class="chip">Вага</span>
+      <span class="chip">Фото й відео з камери</span><span class="chip">Розповідь голосом → текст</span><span class="chip">Тема запису визначається сама</span>
+      <span class="chip">Стрічка · галерея · календар</span><span class="chip">Пошук у записах</span><span class="chip">Нагадування-будильник</span>
+      <span class="chip">Повтори й щоденні справи</span><span class="chip">Пост у групу одним дотиком</span><span class="chip">Instagram · TikTok · Facebook</span>
+      <span class="chip">Представитися в групі</span><span class="chip">Я гуляю</span><span class="chip">Мій двір і QR-плакат</span>
+      <span class="chip">Новини каналу на головній</span><span class="chip">Порада дня для собак і котів</span><span class="chip">Каталог 324 місць · список і карта</span>
+      <span class="chip">Онлайн-запис до партнерів</span><span class="chip">Копія в Google Drive</span><span class="chip">Режим «Пам'ять»</span><span class="chip">Українська й English</span>
+    </div>
+  </div>
+</section>
+
+<section class="part" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow">Частина I · Продукт</div>
+    <h2 class="h-big">Як усе пов'язано</h2>
+    <p class="lead">Розділи не живуть окремо — одна дія тягне за собою наступну, і власнику не треба нічого переписувати вручну.</p>
+    <div class="flows">
+      <div class="flow"><div class="st hl"><b>Запис у салон</b>«Записатися» в Сервісах</div><div class="ar">→</div><div class="st"><b>Нагадування</b>дата, салон, послуга — самі</div><div class="ar">→</div><div class="st"><b>Будильник</b>вчасно нагадає</div><div class="ar">→</div><div class="st"><b>Історія</b>фото «після грумінгу»</div></div>
+      <div class="flow"><div class="st hl"><b>Голос</b>«завтра на щеплення»</div><div class="ar">→</div><div class="st"><b>Запис в Історії</b>текст і тема — самі</div><div class="ar">→</div><div class="st"><b>Нагадування</b>«Схоже на нагадування» — один дотик</div><div class="ar">→</div><div class="st"><b>Календар</b>усе на своїх датах</div></div>
+      <div class="flow"><div class="st hl"><b>Аналізи з клініки</b>PDF у Здоров'ї</div><div class="ar">→</div><div class="st"><b>Медична історія</b>хвороби й щеплення разом</div><div class="ar">→</div><div class="st"><b>Нагадування</b>наступний огляд</div><div class="ar">→</div><div class="st"><b>Лікарю</b>документи одним повідомленням <span class="soon">план</span></div></div>
+      <div class="flow"><div class="st hl"><b>Момент</b>фото чи відео</div><div class="ar">→</div><div class="st"><b>Поділитися</b>текст допису й хештеги — самі</div><div class="ar">→</div><div class="st tg"><b>Група / соцмережі</b>«Лапкова пошта» або від себе</div><div class="ar">→</div><div class="st"><b>Нові люди</b>пост веде до застосунку</div></div>
+      <div class="flow"><div class="st hl"><b>Я гуляю</b>на прогулянці</div><div class="ar">→</div><div class="st tg"><b>Сусіди</b>повідомлення в групу двору</div><div class="ar">→</div><div class="st"><b>Разом гуляти</b>знайомства біля дому</div></div>
+      <div class="flow"><div class="st tg"><b>Канал новин</b>стаття для собак чи котів</div><div class="ar">→</div><div class="st hl"><b>Інфозона</b>заголовок у потрібних власників</div><div class="ar">→</div><div class="st tg"><b>«Читати ›»</b>стаття й обговорення в Telegram</div></div>
+    </div>
+
+    <h2 class="h-big" style="font-size:clamp(24px,3vw,30px);margin-top:64px">Де ми зараз</h2>
+    <div class="stats">
+      <div class="stat"><b>0.3</b><span>версія у тестувальників</span></div>
+      <div class="stat"><b>324</b><span>місця в каталозі Києва</span></div>
+      <div class="stat"><b>86</b><span>можливостей за щоденником розробки</span></div>
+      <div class="stat"><b>0 ₴</b><span>на місяць — інфраструктура зараз</span></div>
+    </div>
+    <div class="trio" style="margin-top:16px">
+      <div class="card"><h3>Працює</h3><p>Повноцінний застосунок для Android з усіма розділами; дві мови; кілька улюбленців; резервна копія.</p></div>
+      <div class="card"><h3>Тестується</h3><p>Версія 0.3 у перших тестувальників, інструкція з завданнями; збираємо зауваження.</p></div>
+      <div class="card"><h3>Навколо</h3><p>Telegram-група й канал з дописами тричі на день, бот «Лапкова пошта», каталог 324 місць, тестові партнери з онлайн-записом.</p></div>
+    </div>
+    <p class="note" style="margin-top:14px">Темп: 8 днів активної розробки (24 вересня – 1 жовтня 2026), близько 57 годин; 86 нових можливостей і 63 виправлення.</p>
+  </div>
+</section>
+
+<section class="part tech" id="tech">
+  <div class="wrap">
+    <div class="eyebrow">Частина II · Технологія</div>
+    <h2 class="h-big">Як це влаштовано</h2>
+    <p class="lead">Простими словами, без коду. Головний принцип: <b>особисте — на телефоні власника</b>, а на нашому сервері — лише загальне: каталог, партнери, поради, новини й пересилання постів у групу.</p>
+
+    <div class="arch">
+      <div class="col">
+        <div class="node phone"><b>Телефон власника</b>Застосунок. Історія, паспорт, здоров'я, нагадування — у базі на самому телефоні. Фото й відео — у галереї.</div>
+        <div class="node gd"><b>Google Drive</b>Резервна копія в прихованій папці застосунку. Бачить лише власник.</div>
+      </div>
+      <div class="node server"><b><img src="a/ch1_sq.jpg" alt="">Наш сервер «uop»</b>Хмара Cloudflare Workers — дата-центри по всьому світу, без власного «заліза». Віддає застосунку партнерів, поради дня, каталог, новини каналу, сторінки запису; пересилає пости «Лапкової пошти».</div>
+      <div class="col">
+        <div class="node tgn"><b><img src="a/post_sq.jpg" alt="">Telegram</b>Група спільноти, канал новин і бот «Лапкова пошта».</div>
+        <div class="node ext"><b>Зовнішні джерела</b>Сайти клінік і салонів, OpenStreetMap, сторінки онлайн-запису EasyWeek, Google Maps.</div>
+      </div>
+    </div>
+    <div class="links"><div>Телефон ⇄ сервер: лише загальні дані</div><div>Сервер ⇄ Telegram: пости й новини</div><div>Телефон ⇄ Google Drive: напряму, повз сервер</div></div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>Застосунок</h3>
+        <ul>
+          <li>Написаний на <b>Flutter</b> (Google) — з того самого коду згодом збирається версія для <b>iPhone</b>.</li>
+          <li>Складається з окремих модулів: улюбленці, історія, здоров'я, нагадування, прогулянки, спільнота, сервіси, медіа, голос, резервна копія. Нові можливості додаються, не ламаючи старих.</li>
+          <li>Дані — у локальній базі на телефоні; працює й без інтернету.</li>
+          <li>Розпізнавання мови — засобами самого телефона.</li>
+          <li>Нагадування — як системний будильник: приходять навіть при закритому застосунку.</li>
+          <li>Дві мови; за кордоном пошук англійською.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Сервер «uop»</h3>
+        <ul>
+          <li><b>Cloudflare Workers</b> — «безсерверна» хмара: не треба орендувати й обслуговувати комп'ютер; відповідає з найближчого до людини дата-центру.</li>
+          <li>Партнерів, поради й каталог змінюємо <b>без нової версії застосунку</b> — телефони підхоплюють зміни самі.</li>
+          <li>Відповіді зберігаються в кеші (новини — на 15 хвилин): швидко й майже безкоштовно.</li>
+          <li>Секретні ключі (як-от ключ бота) — лише на сервері, у застосунку їх немає.</li>
+          <li>Зараз — у межах безкоштовного рівня.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sub"><img src="a/ch4_sq.jpg" alt=""><h3>Новини каналу: від допису до головного екрана</h3></div>
+    <div class="flow">
+      <div class="st"><b>1. Допис</b>Статтю готуємо з ШІ-асистентом (Grok): заголовок першим рядком, текст, #собаки чи #коти</div><div class="ar">→</div>
+      <div class="st tg"><b>2. Канал</b>Публікуємо в Telegram-каналі universe_of_pets_ua_news — тричі на день</div><div class="ar">→</div>
+      <div class="st"><b>3. Сервер читає</b>Кожні 15 хвилин бере свіжі дописи з публічної сторінки каналу й розпізнає хештеги</div><div class="ar">→</div>
+      <div class="st hl"><b>4. Застосунок</b>Заголовок в «Інфозоні» — лише тим, кому підходить: власникам собак, котів чи всім</div>
+    </div>
+    <p class="note">Жодного ручного перенесення: опублікували в каналі — за кілька хвилин новина на головній у користувачів. Старші за тиждень зникають самі.</p>
+
+    <div class="sub"><img src="a/post_sq.jpg" alt=""><h3>«Лапкова пошта»: пост у групу одним дотиком</h3></div>
+    <div class="flow">
+      <div class="st hl"><b>1. Застосунок</b>«Мурка ділиться в групі»: фото чи відео й текст ідуть на наш сервер</div><div class="ar">→</div>
+      <div class="st"><b>2. Перевірка</b>Запит саме з нашого застосунку й не частіше 6 постів на годину — захист від спаму</div><div class="ar">→</div>
+      <div class="st"><b>3. Бот</b>@UoPone_bot публікує пост через офіційний інтерфейс Telegram</div><div class="ar">→</div>
+      <div class="st tg"><b>4. Група</b>Пост від «Лапкової пошти»; власник одразу може його відкрити</div>
+    </div>
+    <p class="note">Ключ бота — лише на сервері як секрет. Ім'я й акаунт власника в пості не показуються.</p>
+
+    <div class="sub"><img src="a/group_sq.jpg" alt=""><h3>Онлайн-запис до партнерів</h3></div>
+    <div class="flow">
+      <div class="st hl"><b>1. «Записатися»</b>На картці партнера в Сервісах</div><div class="ar">→</div>
+      <div class="st"><b>2. Сторінка салону</b>Публічна сторінка запису EasyWeek — прямо в застосунку</div><div class="ar">→</div>
+      <div class="st"><b>3. «Дякуємо!»</b>Застосунок бачить, що запис завершено</div><div class="ar">→</div>
+      <div class="st hl"><b>4. Нагадування</b>Дата, салон, послуга — заповнюються самі</div>
+    </div>
+    <p class="note">Прямий програмний доступ EasyWeek дає лише в платному модулі для розробників — це наступний крок.</p>
+
+    <div class="sub"><img src="a/ch1_sq.jpg" alt=""><h3>Каталог ветклінік і грумерів: від таблиці до карти</h3></div>
+    <div class="steps">
+      <div class="step"><b><span class="k">1</span>Збираємо</b>Власні таблиці команди, відкрита мапа OpenStreetMap, пошук в інтернеті</div>
+      <div class="step"><b><span class="k">2</span>Звіряємо</b>Кожне місце — на сайті самого закладу: адреса, телефон, послуги; без дублікатів, мережі — по філіях</div>
+      <div class="step"><b><span class="k">3</span>Координати</b>Кожній адресі — точка на мапі й район; зведена таблиця Excel</div>
+      <div class="step"><b><span class="k">4</span>На сервер</b>Готовий каталог — на наш сервер; оновлюється без нової версії застосунку</div>
+      <div class="step app"><b><span class="k">5</span>Телефон</b>Отримує каталог і місцезнаходження власника</div>
+      <div class="step app"><b><span class="k">6</span>Перевірка GPS</b>Під час тривог GPS збивають: якщо точка далі 60 км від будь-якого відомого місця — список за районами, без хибних відстаней</div>
+      <div class="step app"><b><span class="k">7</span>Порядок</b>Партнери зверху, далі — найближчі; лише місця з адресою і телефоном чи сайтом</div>
+      <div class="step app"><b><span class="k">8</span>Список і карта</b>Однакові картки: дзвінок · сайт · маршрут · запис</div>
+    </div>
+    <div class="box sand" style="margin-top:16px"><h3>Чому не просто Google</h3>Пошук місць від Google (Places) коштує гроші за кожен запит і потребує платіжної картки; відкрита мапа по Києву неповна. Власний перевірений каталог — безкоштовний, точніший і стає основою для партнерства із закладами.</div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>Приватність і безпека</h3>
+        <ul>
+          <li>Без акаунтів і реєстрації; особисті дані не потрапляють на наш сервер.</li>
+          <li>Копія — у власному Google Drive власника, у прихованій папці застосунку.</li>
+          <li>Телефон хазяїна зберігається лише на телефоні.</li>
+          <li>Жодних секретних ключів у застосунку — лише на сервері.</li>
+          <li>Жодних медичних порад і діагнозів.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Як ведеться розробка</h3>
+        <ul>
+          <li>Увесь код — у системі контролю версій Git (GitHub), кожна зміна з описом.</li>
+          <li>Розробка з ШІ-асистентом (Claude): швидкі ітерації, перевірка кожної зміни на справжньому телефоні.</li>
+          <li>Три збірки поруч: робоча, демо для перевірок і тестова — з однаковим номером версії.</li>
+          <li>Щоденник розробки й інструкція тестувальника до кожної версії.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="part" id="plans">
+  <div class="wrap">
+    <div class="eyebrow">Частина III · Плани</div>
+    <h2 class="h-big">Що робимо далі</h2>
+    <p class="lead">Основа вже працює. Далі — поглиблюємо те, що робить улюбленця центром: його здоров'я, пам'ять і послуги навколо нього.</p>
+    <div class="plans">
+      <div class="box violet"><h3>Інтеграція із системами запису</h3>Пряме підключення до EasyWeek та інших систем онлайн-запису салонів і ветклінік: вільні години, запис і перенесення прямо в застосунку. Нагадування й історія візитів — автоматично.</div>
+      <div class="box rose"><h3>«Книга життя» · «Пам'ять»</h3>Красива книга про улюбленця з його історії: фото, розповіді, важливі дати. На замовлення — у PDF або друкована. Особливо цінна, коли улюбленця вже немає поруч.</div>
+      <div class="box soft"><h3>Документи для ветеринара</h3>Вибрати медичні записи й PDF (аналізи, висновки, щеплення) і надіслати лікарю одним повідомленням або посиланням. Повна історія хвороб — у будь-якій клініці.</div>
+      <div class="box green"><h3>Каталог — більше й ширше</h3>Готелі для тварин, вигульники, зоомагазини й аптеки; щотижнева автоматична перевірка сайтів закладів; інші міста й уся Україна.</div>
+      <div class="box sand"><h3>Розумні помічники</h3>«Гарно оформити» — ШІ робить з кількох слів гарний запис чи допис; сповіщення з порадою дня; бот групи вітає новачків і захищає від спаму.</div>
+      <div class="box tg"><h3>Спільнота, фаза 2</h3>Міста й райони, мапа прогулянок, друзі улюбленця; гілки для порід, коли їхніх власників стане достатньо.</div>
+    </div>
+    <div class="road">
+      <table>
+        <thead><tr><th>Етап</th><th>Що робимо</th></tr></thead>
+        <tbody>
+          <tr><td>Зараз</td><td>Версія 0.3 у тестувальників; збираємо зауваження й виправляємо; перші справжні салони-партнери в Києві.</td></tr>
+          <tr><td>Найближчим часом</td><td>Об'єднати напрацювання в основну версію; сповіщення з порадою дня; «Гарно оформити»; бот групи.</td></tr>
+          <tr><td>Google Play</td><td>Власний ключ підпису, резервна копія для всіх; внутрішнє тестування (12 людей × 14 днів), далі — публікація.</td></tr>
+          <tr><td>Далі</td><td>Інтеграція із системами запису, документи для ветеринара, «Книга життя», каталог по Україні, версія для iPhone.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="closing">
+  <div class="wrap">
+    <img src="a/ch1_sq.jpg" alt="">
+    <div>
+      <p><b>Universe of Pets</b> — не ще одна соцмережа і не довідник, а особистий простір улюбленця, навколо якого зібрано все: історія, здоров'я, справи, послуги й люди. Робочий застосунок уже є — зараз ми на етапі тестування з першими користувачами.</p>
+      <small>Юрій і Костянтин · жовтень 2026. Знімки — з тестової версії 0.3; Бублик і Мурка — демонстраційні профілі (вільні зображення з Wikimedia Commons).</small>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var c = document.getElementById('sky');
+  if (!c || !c.getContext) return;
+  var ctx = c.getContext('2d'), stars = [], seed = 7;
+  function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+  for (var i = 0; i < 160; i++) stars.push({ x: rnd(), y: rnd(), r: rnd() * 1.4 + .4, a: rnd() * .6 + .25, p: rnd() * 6.28 });
+  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function size() { var d = window.devicePixelRatio || 1; c.width = c.offsetWidth * d; c.height = c.offsetHeight * d; ctx.setTransform(d, 0, 0, d, 0, 0); }
+  function draw(t) {
+    var w = c.offsetWidth, h = c.offsetHeight;
+    ctx.clearRect(0, 0, w, h);
+    for (var i = 0; i < stars.length; i++) {
+      var s = stars[i], tw = still ? 1 : (.75 + .25 * Math.sin(t / 900 + s.p));
+      ctx.globalAlpha = s.a * tw; ctx.fillStyle = '#ffffff';
+      ctx.beginPath(); ctx.arc(s.x * w, s.y * h, s.r, 0, 6.283); ctx.fill();
+    }
+    if (!still) requestAnimationFrame(draw);
+  }
+  size(); window.addEventListener('resize', size); requestAnimationFrame(draw);
+})();
+</script>
+
+</body>
+</html>
